@@ -1,7 +1,11 @@
 <?php
 $key = "unknown";
 
-function checkkey($private_key = $_GET['private_key']){
+function checkkey($private_key = ""){
+    if($private_key == ""){
+        $private_key = $_GET['private_key'];
+    }
+
     global $key;
 
     loadkey();
@@ -13,5 +17,5 @@ function checkkey($private_key = $_GET['private_key']){
 }
 
 function loadkey(){
-    include("key.php");
+    include_once($_SERVER['DOCUMENT_ROOT'] . "api/key.php");
 }
