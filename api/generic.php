@@ -13,7 +13,7 @@ function checkkey($private_key = ""){
     global $key;
 
     if($private_key != $key){
-        echo "Private key is incorrect. - " . $private_key . " : " . $key;
+        echo "Private key is incorrect.";
         exit;
     }
 }
