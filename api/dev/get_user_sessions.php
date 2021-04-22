@@ -12,10 +12,16 @@ $key_array = check_utauth_key($key, true);
 
 $user = $key_array['untoneid'];
 
-$stmt = $mysqli_conection->prepare("INSERT INTO `sessions` (`id`, `userid`, `json`) VALUES (NULL, ?, ?);");
-$stmt->bind_param("is", $user, $session);
+$stmt = $mysqli_conection->prepare("SELECT * FROM `sessions` WHERE `userid` = ?");
+$stmt->bind_param("i", $user);
 $stmt->execute();
 $result = $stmt->get_result();
 
-$response["response"] = "success";
+$response;
+$count = 0;
+while ($row = $result->fetch_assoc()) {
+    $response[$count] = $row;
+    $count += 1;
+}
+
 echo json_encode($response);
