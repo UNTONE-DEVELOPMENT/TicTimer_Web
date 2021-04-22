@@ -4,4 +4,4 @@ include($_SERVER['DOCUMENT_ROOT'] . "/api/generic.php");
 
 checkkey();
 
-echo "POGGERS";
+echo "Test successful! Poggers!";
