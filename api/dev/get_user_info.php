@@ -7,15 +7,12 @@ checkkey();
 
 $session = $_GET['session'];
 $key = $_GET['key'];
+
 $clientsecret = $client_key;
 
 $key_array = check_utauth_key($key, true);
 
-$ukey = "?";
-while($row = $key_array) {
-    $ukey = $row['untonekey'];
-}
-
+$ukey = $key_array['untonekey'];
 
 $post = [
     'client_secret' => $clientsecret,

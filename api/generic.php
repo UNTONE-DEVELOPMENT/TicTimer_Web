@@ -4,21 +4,22 @@ $key = "unknown";
 include_once($_SERVER['DOCUMENT_ROOT'] . "/api/db.php");
 
 function checkkey($private_key = ""){
+    loadkey();
+
     if($private_key == ""){
         $private_key = $_GET['private_key'];
     }
 
     global $key;
 
-    loadkey();
-
     if($private_key != $key){
-        echo "Private key is incorrect.";
+        echo "Private key is incorrect. - " . $private_key . " : " . $key;
         exit;
     }
 }
 
 function loadkey(){
+    global $key;
     include_once($_SERVER['DOCUMENT_ROOT'] . "/api/key.php");
 }
 
@@ -34,6 +35,8 @@ function generateRandomString($length = 10)
 }
 
 function check_utauth_key($key, $exit = false){
+    global $mysqli_conection;
+
     $stmt = $mysqli_conection->prepare("SELECT * FROM `keys` WHERE `key` = ?");
     $stmt->bind_param("s", $key);
     $stmt->execute();
@@ -41,7 +44,9 @@ function check_utauth_key($key, $exit = false){
 
     if($result->num_rows === 0){
         $response["error"] = "key_does_not_exist";
+        
         echo json_encode($response);
+        
         exit;
     }
    
