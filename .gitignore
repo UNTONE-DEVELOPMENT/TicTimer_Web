@@ -7,3 +7,5 @@ img
 utauth
 index.php
 main.css
+api/db.php
+api\db.php
